@@ -18,13 +18,12 @@ jobs:
         run: go build -v ./...
       - name: "Test with the Go CLI"
         run: go test
-      - name: "The job has succeeded"
+      - name: "Send notifications"
         if: ${{ success() }}
-          - name: "Send notifications"
-            uses: appleboy/discord-action@master
-            with:
-              webhook_id: ${{ secrets.WEBHOOK_ID }}
-              webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-              color: "#48f442"
-              username: "お知らせ君"
-              message: "test is passed"
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          color: "#48f442"
+          username: "GOお知らせ君"
+          message: "test is passed"
