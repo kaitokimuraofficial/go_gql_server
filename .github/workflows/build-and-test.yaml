@@ -1,0 +1,29 @@
+name: Go
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Check out repo's head branch"
+        uses: actions/checkout@v4
+      - name: "Setup Go"
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.4'
+      - name: "Install dependencies"
+        run: go get .
+      - name: Build
+        run: go build -v ./...
+      - name: "Test with the Go CLI"
+        run: go test
+      - name: "Send notifications"
+        if: ${{ success() }}
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          color: "#48f442"
+          username: "GOお知らせ君"
+          message: "test is passed"
