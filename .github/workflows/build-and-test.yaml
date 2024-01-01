@@ -7,7 +7,7 @@ jobs:
 
     steps:
       - name: "Check out repo's head branch"
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: "Setup Go"
         uses: actions/setup-go@v4
         with:
